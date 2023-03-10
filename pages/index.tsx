@@ -31,6 +31,7 @@ const Home: NextPage = ({ posts }) => {
 };
 
 export default Home;
+
 // Fetch data at build time
 export async function getStaticProps() {
   const posts = (await getPosts()) || [];
