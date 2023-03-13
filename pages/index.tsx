@@ -7,7 +7,7 @@ import FeaturedPost from '../sections/FeaturedPosts';
 
 import { getPosts } from '../services';
 
-const Home: NextPage = ({ posts }) => {
+const Home: NextPage = (posts) => {
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
