@@ -9,13 +9,12 @@ import FeaturedPost from '../sections/FeaturedPosts';
 import { getPosts } from '../services';
 
 const Home: NextPage = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     // Fetch posts on build
     async function fetchPosts() {
       let response = await getPosts();
-      console.log(response);
       setPosts(response);
     }
 
