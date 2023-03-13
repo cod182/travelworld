@@ -1,13 +1,27 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 import { PostCard, Categories, PostWidget } from '../components';
 import FeaturedPost from '../sections/FeaturedPosts';
 
 import { getPosts } from '../services';
 
-const Home: NextPage = (posts) => {
+const Home: NextPage = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch posts on build
+    async function fetchPosts() {
+      let response = await getPosts();
+      console.log(response);
+      setPosts(response);
+    }
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -18,7 +32,9 @@ const Home: NextPage = (posts) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 col-span-1">
           {[
-            posts.map((post) => <PostCard post={post.node} key={post.title} />),
+            posts.map((post, index) => (
+              <PostCard key={index} post={post.node} />
+            )),
           ]}
         </div>
         <div className="lg:col-span-4 col-span-1">
@@ -36,7 +52,7 @@ export default Home;
 
 // Fetch data at build time
 export async function getStaticProps() {
-  const posts = (await getPosts()) || [];
+  const posts = (await getPosts()) || {};
   return {
     props: { posts },
   };

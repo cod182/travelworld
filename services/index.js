@@ -4,9 +4,10 @@ const graphqlAPI = process.env.NEXT_PUBLIC_CMS_ENDPOINT;
 
 export const getPosts = async () => {
   const query = gql`
-    query Assets {
+    query MyQuery {
       postsConnection {
         edges {
+          cursor
           node {
             author {
               bio
